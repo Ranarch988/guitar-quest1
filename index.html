@@ -3,27 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUITAR QUEST</title>
+<title>Guitar Quest</title>
 
-<script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
 
 <style>
 body{
 margin:0;
-background:#111;
-overflow:hidden;
+background:#111827;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:Arial;
+}
+canvas{
+border:3px solid white;
 }
 </style>
-
 </head>
+
 <body>
 
 <script>
-const config = {
-type: Phaser.AUTO,
-width: 800,
-height: 500,
-backgroundColor:"#10152b",
+
+const config={
+type:Phaser.AUTO,
+width:800,
+height:500,
+backgroundColor:"#1e293b",
 scene:{
 create:create
 }
@@ -33,33 +41,45 @@ new Phaser.Game(config);
 
 function create(){
 
-this.add.text(400,120,"GUITAR QUEST",{
+this.add.text(400,80,"🎸 GUITAR QUEST",{
 fontSize:"48px",
+color:"#ffffff",
+fontStyle:"bold"
+}).setOrigin(0.5);
+
+this.add.text(400,150,"Face Card Rhythm Game",{
+fontSize:"24px",
+color:"#cccccc"
+}).setOrigin(0.5);
+
+const start=this.add.text(400,280,"▶ START",{
+fontSize:"36px",
+backgroundColor:"#22c55e",
+padding:{x:30,y:15},
 color:"#ffffff"
 }).setOrigin(0.5);
 
-this.add.text(400,200,"FACE CARD D-DAY",{
-fontSize:"24px",
-color:"#bbbbbb"
-}).setOrigin(0.5);
+start.setInteractive({useHandCursor:true});
 
-const btn=this.add.text(400,300,"▶ START",{
-fontSize:"32px",
-backgroundColor:"#4caf50",
-padding:{x:20,y:10},
-color:"#fff"
-}).setOrigin(0.5).setInteractive();
+start.on("pointerdown",()=>{
 
-btn.on("pointerdown",()=>{
-alert("Oyun başlayacak!");
+this.cameras.main.flash(300);
+
+this.time.delayedCall(300,()=>{
+
+alert("Oyun çok yakında başlıyor!");
+
 });
 
-this.add.text(400,460,"Made with nihaofineshyt",{
+});
+
+this.add.text(400,460,"Made by Rana",{
 fontSize:"16px",
-color:"#888"
+color:"#888888"
 }).setOrigin(0.5);
 
 }
+
 </script>
 
 </body>
