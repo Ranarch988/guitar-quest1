@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUITAR QUEST</title>
+
+<script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+
+<style>
+body{
+margin:0;
+background:#111;
+overflow:hidden;
+}
+</style>
+
+</head>
+<body>
+
+<script>
+const config = {
+type: Phaser.AUTO,
+width: 800,
+height: 500,
+backgroundColor:"#10152b",
+scene:{
+create:create
+}
+};
+
+new Phaser.Game(config);
+
+function create(){
+
+this.add.text(400,120,"GUITAR QUEST",{
+fontSize:"48px",
+color:"#ffffff"
+}).setOrigin(0.5);
+
+this.add.text(400,200,"FACE CARD D-DAY",{
+fontSize:"24px",
+color:"#bbbbbb"
+}).setOrigin(0.5);
+
+const btn=this.add.text(400,300,"▶ START",{
+fontSize:"32px",
+backgroundColor:"#4caf50",
+padding:{x:20,y:10},
+color:"#fff"
+}).setOrigin(0.5).setInteractive();
+
+btn.on("pointerdown",()=>{
+alert("Oyun başlayacak!");
+});
+
+this.add.text(400,460,"Made with nihaofineshyt",{
+fontSize:"16px",
+color:"#888"
+}).setOrigin(0.5);
+
+}
+</script>
+
+</body>
+</html>
