@@ -81,6 +81,113 @@ color:"#888888"
 }
 
 </script>
+<script>
 
+const config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    backgroundColor: "#0f172a",
+    scene: {
+        preload,
+        create,
+        update
+    }
+};
+
+let notes;
+let score = 0;
+let scoreText;
+
+const lanes = [150,300,450,600];
+
+const keys = {};
+
+new Phaser.Game(config);
+
+function preload(){}
+
+function create(){
+
+    for(let x of lanes){
+        this.add.rectangle(x,300,6,600,0xffffff);
+    }
+
+    notes = this.physics.add.group();
+
+    this.time.addEvent({
+        delay:800,
+        callback:spawnNote,
+        callbackScope:this,
+        loop:true
+    });
+
+    keys.A=this.input.keyboard.addKey("A");
+    keys.S=this.input.keyboard.addKey("S");
+    keys.D=this.input.keyboard.addKey("D");
+    keys.F=this.input.keyboard.addKey("F");
+
+    scoreText=this.add.text(20,20,"Score: 0",{
+        fontSize:"28px",
+        color:"#ffffff"
+    });
+}
+
+function update(){
+
+    hitLane.call(this,keys.A,0);
+    hitLane.call(this,keys.S,1);
+    hitLane.call(this,keys.D,2);
+    hitLane.call(this,keys.F,3);
+
+    notes.children.each(note=>{
+
+        if(note.y>620){
+            note.destroy();
+        }
+
+    });
+
+}
+
+function spawnNote(){
+
+    const lane=Phaser.Math.Between(0,3);
+
+    const note=this.add.circle(lanes[lane],-20,18,0x22c55e);
+
+    this.physics.add.existing(note);
+
+    note.body.setVelocityY(250);
+
+    note.lane=lane;
+
+    notes.add(note);
+
+}
+
+function hitLane(key,lane){
+
+    if(Phaser.Input.Keyboard.JustDown(key)){
+
+        notes.children.each(note=>{
+
+            if(note.lane===lane && Math.abs(note.y-520)<40){
+
+                note.destroy();
+
+                score++;
+
+                scoreText.setText("Score: "+score);
+
+            }
+
+        });
+
+    }
+
+}
+
+</script>
 </body>
 </html>
